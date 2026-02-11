@@ -34,7 +34,7 @@ class MenuScreen(val game: Main) : KtxScreen {
         game.batch.use { batch ->
             batch.draw(titleTexture, 5f, 15f, 10f, 4f)
 
-            val thickness = 0.2f // Adjust for a thicker or thinner line
+            val thickness = 0.2f
             batch.draw(game.whitePixel, playButton.x, playButton.y, playButton.width, thickness)
             batch.draw(game.whitePixel, playButton.x, playButton.y + playButton.height - thickness, playButton.width, thickness)
             batch.draw(game.whitePixel, playButton.x, playButton.y, thickness, playButton.height)
