@@ -33,8 +33,8 @@ class Main : KtxGame<KtxScreen>() {
         font.data.setScale(0.09f)
         font.setUseIntegerPositions(false)
 
-        addScreen(GameScreen(this))
-        setScreen<GameScreen>()
+        addScreen(LoadingScreen(this))
+        setScreen<LoadingScreen>()
     }
 
     override fun dispose() {

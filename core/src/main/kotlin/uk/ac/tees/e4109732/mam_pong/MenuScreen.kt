@@ -2,17 +2,15 @@ package uk.ac.tees.e4109732.mam_pong
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
-import ktx.assets.toInternalFile
 import ktx.graphics.use
 
 class MenuScreen(val game: Main) : KtxScreen {
-    private val titleTexture = Texture("GameTitle.png".toInternalFile())
+    private val titleRegion = game.atlas?.findRegion("GameTitle")
 
     private val playButton = Rectangle(7f, 8f, 6f, 3f)
     private val touchPoint = Vector2()
@@ -32,7 +30,9 @@ class MenuScreen(val game: Main) : KtxScreen {
         game.viewport.apply()
         game.batch.projectionMatrix = game.viewport.camera.combined
         game.batch.use { batch ->
-            batch.draw(titleTexture, 5f, 15f, 10f, 4f)
+            titleRegion?.let { region ->
+                batch.draw(region, 5f, 15f, 10f, 4f)
+            }
 
             val thickness = 0.2f
             batch.draw(game.whitePixel, playButton.x, playButton.y, playButton.width, thickness)
@@ -59,9 +59,5 @@ class MenuScreen(val game: Main) : KtxScreen {
     override fun resize(width: Int, height: Int) {
         game.viewport.update(width, height, true)
         show()
-    }
-
-    override fun dispose() {
-        titleTexture.dispose()
     }
 }
