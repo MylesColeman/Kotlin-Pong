@@ -5,12 +5,24 @@ import ktx.app.clearScreen
 import ktx.graphics.use
 
 class GameScreen(val game: Main) : KtxScreen {
+    private val paddleRegion = game.atlas?.findRegion("Paddle")
+
     override fun render(delta: Float) {
         clearScreen(0.12f, 0.12f, 0.12f)
 
         game.viewport.apply()
+        game.batch.projectionMatrix = game.viewport.camera.combined
         game.batch.use { batch ->
-            batch.projectionMatrix = game.viewport.camera.combined
+            paddleRegion?.let { region ->
+                for (i in 0 until game.viewport.worldWidth.toInt()) {
+                    batch.draw(
+                        region,
+                        i.toFloat(),
+                        game.viewport.worldHeight * 0.5f - 0.5f,
+                        0.5f,
+                        0.5f)
+                }
+            }
         }
     }
 
