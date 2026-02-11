@@ -1,4 +1,22 @@
-# Pong
+# Pong (WIP)
+
+This repository is a refined implementation of the classic Pong, developed to master **Kotlin**-specific patterns and mobile game architecture as part of my **Mobile and Multiplayer** module at **Teesside University**.
+
+*This repository will eventually be merged into a comprehensive Mobile & Multiplayer game demo collection.*
+
+---
+
+## Technical Focus
+* **AI Paddle Logic**: Implementation of an automated opponent that tracks ball trajectories, demonstrating a step toward "Believable AI" systems.
+* **Asset Optimisation**: Transitioned from individual sprite loading to using **Texture Atlases** for efficient rendering and reduced draw calls.
+* **State Management**: Utilising distinct screens for Loading, Menus, and Gameplay to manage a professional game flow.
+* **Kotlin Idioms**: Leveraging KTX (Kotlin Extensions for LibGDX) for cleaner, more expressive game logic.
+
+## Project Structure
+- `GameScreen.kt`: The core gameplay loop including physics, AI, and collision detection.
+- `LoadingScreen.kt`: Asynchronous asset loading to ensure a smooth user experience.
+- `MenuScreen.kt`: Handling UI interactions and game state transitions.
+- `assets/`: Optimised game textures stored in a `game.atlas` file.
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
