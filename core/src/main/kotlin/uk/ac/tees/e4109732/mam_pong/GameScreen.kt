@@ -50,7 +50,7 @@ class GameScreen(val game: Main) : KtxScreen {
     }
 
     fun newGame() {
-        //gameOverLabel.isVisible = false
+        gameOverLabel.isVisible = false
         gameWorld.reset()
     }
 
