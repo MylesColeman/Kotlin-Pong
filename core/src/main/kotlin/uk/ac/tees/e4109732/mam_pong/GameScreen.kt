@@ -15,27 +15,45 @@ class GameScreen(val game: Main) : KtxScreen {
     private val aiScoreLabel: Label
     private val playerScoreLabel: Label
 
+    private val gameOverLabel: Label
+
     init {
         val labelStyle = Label.LabelStyle(game.scoreFont, Color.WHITE)
 
+        gameOverLabel = Label("You Won", labelStyle).apply {
+            isVisible = false
+        }
+
         val root = scene2d.table {
             setFillParent(true)
+            setRound(false)
 
             add(scene2d.table {
                 setRound(false)
                 top().left()
                 aiScoreLabel = Label("0", labelStyle)
-                add(aiScoreLabel).padLeft(0.4f).padTop(10.6f)
+                add(aiScoreLabel).padLeft(0.4f).padTop(12f)
             }).height(12f).width(20f).expand().fill().row()
+
+            add(gameOverLabel).expand().center().padBottom(1.2f).row()
 
             add(scene2d.table {
                 setRound(false)
                 top().left()
                 playerScoreLabel = Label("0", labelStyle)
-                add(playerScoreLabel).padLeft(0.4f).padTop(1.55f)
+                add(playerScoreLabel).padLeft(0.4f).padTop(0.3f)
             }).height(12f).width(20f).expand().fill()
         }
         stage.addActor(root)
+
+        setGameOverState(10, 3, "You Won")
+    }
+
+    fun setGameOverState(playerScore: Int, aiScore: Int, resultText: String) {
+        gameOverLabel.isVisible = true
+        gameOverLabel.setText(resultText)
+        aiScoreLabel.setText(aiScore.toString())
+        playerScoreLabel.setText(playerScore.toString())
     }
 
     override fun render(delta: Float) {
