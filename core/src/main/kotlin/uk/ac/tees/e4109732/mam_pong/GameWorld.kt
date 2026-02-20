@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.badlogic.gdx.utils.viewport.Viewport
 
-class GameWorld(val gameScreen: GameScreen) {
+class GameWorld(gameScreen: GameScreen) {
     private val viewport: Viewport = gameScreen.game.viewport
     private val paddleTex: AtlasRegion? = gameScreen.game.atlas?.findRegion("Paddle")
     private val ballTex: AtlasRegion? = gameScreen.game.atlas?.findRegion("Ball")
