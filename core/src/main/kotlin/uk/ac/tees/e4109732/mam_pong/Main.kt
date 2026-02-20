@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
-import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import ktx.scene2d.Scene2DSkin
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 
 class Main : KtxGame<KtxScreen>() {
     val batch by lazy { SpriteBatch() }
-    val viewport = FitViewport(20f, 24f)
+    val viewport = ExtendViewport(Constants.WORLD_WIDTH.toFloat(), Constants.WORLD_HEIGHT.toFloat())
     val assetManager = AssetManager()
 
     var atlas: TextureAtlas? = null
