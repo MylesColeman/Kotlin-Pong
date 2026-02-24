@@ -2,6 +2,7 @@ package uk.ac.tees.e4109732.mam_pong
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
 
@@ -32,8 +33,6 @@ class Ball(private val viewport: Viewport, private val texture: AtlasRegion?) {
                 0.5f, 0.5f, 1f, 1f,
                 1f, 1f, localAngle)
         }
-
-        if (y < 0 || y > viewport.worldHeight) reset()
     }
 
     fun setDirectionAngle(angle: Float) {
@@ -42,8 +41,15 @@ class Ball(private val viewport: Viewport, private val texture: AtlasRegion?) {
 
     fun reset() {
         velocity.set(1f, 0f)
-        x = Constants.WORLD_WIDTH * 0.5f
-        y = Constants.WORLD_HEIGHT.toFloat()
-        setDirectionAngle(-40f)
+        x = viewport.worldWidth * 0.5f
+
+        if (MathUtils.randomBoolean()) {
+            velocity.setAngleDeg(-Constants.PADDLE_LEFT_ANGLE + MathUtils.random(-30f, 30f))
+            y = viewport.worldHeight - 1f
+        }
+        else {
+            velocity.setAngleDeg(Constants.PADDLE_RIGHT_ANGLE + MathUtils.random(-30f, 30f))
+            y = 1.15f
+        }
     }
 }

@@ -1,28 +1,23 @@
 package uk.ac.tees.e4109732.mam_pong
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
 import kotlin.math.abs
 
-class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) {
-    private val touchCoords = Vector2()
+class AIPaddle(private val viewport: Viewport, private val texture: AtlasRegion?) {
     private var centreX = 0f
     private var leftX = 0f
-    private var y = 0.2f
+    private var y = Constants.WORLD_HEIGHT - 1.2f
 
     init {
         reset()
     }
 
-    fun draw(batch: SpriteBatch, delta: Float) {
-        touchCoords.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
-        viewport.unproject(touchCoords)
+    fun draw(batch: SpriteBatch, delta: Float, ballX: Float) {
+        centreX += (ballX - centreX) * delta * Constants.AI_PADDLE_SPEED
 
-        centreX += (touchCoords.x - centreX) * delta * Constants.PADDLE_SPEED
         leftX = centreX - Constants.PADDLE_WIDTH * 0.5f
         if (leftX < 0f) leftX = 0f
         else if (leftX > viewport.worldWidth - Constants.PADDLE_WIDTH)
@@ -31,7 +26,7 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
         centreX = leftX + Constants.PADDLE_WIDTH * 0.5f
 
         texture?.let {
-            batch.setColor(Constants.PADDLE_COLOR)
+            batch.setColor(Constants.AI_PADDLE_COLOR)
             batch.draw(it, leftX, y, Constants.PADDLE_WIDTH, 1f)
             batch.setColor(1f, 1f, 1f, 1f)
         }
@@ -40,7 +35,7 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
     fun hitTest(ball: Ball): Boolean {
         val sectionWidth = Constants.PADDLE_WIDTH * 0.3f
 
-        if (abs(ball.y - y) > 1.15f) return false
+        if (abs(ball.y - y) >= 0.25f) return false
 
         if (abs(ball.x - centreX) < Constants.PADDLE_WIDTH * 0.5f + 0.485f) {
 
@@ -61,8 +56,7 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
                         MathUtils.random(-Constants.PADDLE_DELTA_ANGLE, Constants.PADDLE_DELTA_ANGLE)
                 }
             }
-
-            ball.setDirectionAngle(bounceAngle)
+            ball.setDirectionAngle(bounceAngle * -1f)
             return true
         }
         return false
@@ -70,6 +64,6 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
 
     fun reset() {
         centreX = viewport.worldWidth * 0.5f
-        y = 0.2f
+        y = viewport.worldHeight - 1.2f
     }
 }
