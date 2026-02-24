@@ -15,6 +15,7 @@ class GameWorld(gameScreen: GameScreen) {
     fun render(batch: SpriteBatch, delta: Float) {
         ball.draw(batch, delta)
         paddle.draw(batch, delta)
+        paddle.hitTest(ball)
     }
 
     fun reset() {

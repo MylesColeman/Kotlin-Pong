@@ -13,5 +13,10 @@ object Constants {
 
     const val PADDLE_WIDTH = 2.5f
     val PADDLE_COLOR: Color = Color.GREEN
+    const val PADDLE_LEFT_ANGLE = 130f
+    const val PADDLE_CENTER_ANGLE = 90f
+    const val PADDLE_RIGHT_ANGLE = 50f
+    const val PADDLE_DELTA_ANGLE = 15f
+
     const val PADDLE_SPEED = 5f
 }

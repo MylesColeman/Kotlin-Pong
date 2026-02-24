@@ -43,7 +43,7 @@ class Ball(private val viewport: Viewport, private val texture: AtlasRegion?) {
     fun reset() {
         velocity.set(1f, 0f)
         x = Constants.WORLD_WIDTH * 0.5f
-        y = 2f
-        setDirectionAngle(30f)
+        y = Constants.WORLD_HEIGHT.toFloat()
+        setDirectionAngle(-40f)
     }
 }

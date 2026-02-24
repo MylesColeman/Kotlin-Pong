@@ -3,8 +3,10 @@ package uk.ac.tees.e4109732.mam_pong
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
+import kotlin.math.abs
 
 class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) {
     private val touchCoords = Vector2()
@@ -32,6 +34,39 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
             batch.draw(it, leftX, y, Constants.PADDLE_WIDTH, 1f)
             batch.setColor(1f, 1f, 1f, 1f)
         }
+    }
+
+    fun hitTest(ball: Ball): Boolean {
+        val sectionWidth = Constants.PADDLE_WIDTH * 0.3f
+
+        if (abs(ball.y - y) > 1.15f) return false
+
+        if (abs(ball.x - centreX) < Constants.PADDLE_WIDTH * 0.5f + 0.485f) {
+
+            val distX = abs(ball.x - leftX)
+
+            val bounceAngle: Float = when {
+                distX >= 0 && distX <= sectionWidth -> {
+                    Constants.PADDLE_LEFT_ANGLE +
+                        MathUtils.random(-Constants.PADDLE_DELTA_ANGLE, Constants.PADDLE_DELTA_ANGLE)
+                }
+
+                distX > sectionWidth && distX <= 2 * sectionWidth -> {
+                    Constants.PADDLE_CENTER_ANGLE +
+                        MathUtils.random(-Constants.PADDLE_DELTA_ANGLE, Constants.PADDLE_DELTA_ANGLE)
+
+                }
+
+                else -> {
+                    Constants.PADDLE_RIGHT_ANGLE +
+                        MathUtils.random(-Constants.PADDLE_DELTA_ANGLE, Constants.PADDLE_DELTA_ANGLE)
+                }
+            }
+
+            ball.setDirectionAngle(bounceAngle)
+            return true
+        }
+        return false
     }
 
     fun reset() {
