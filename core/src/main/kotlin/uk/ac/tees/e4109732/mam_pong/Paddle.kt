@@ -14,15 +14,26 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
     private var leftX = 0f
     private var y = 0.2f
 
+    private var filteredAccelX = 0f
+    private val alpha = 0.05f
+
     init {
         reset()
     }
 
     fun draw(batch: SpriteBatch, delta: Float) {
-        touchCoords.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
-        viewport.unproject(touchCoords)
+        if (Gdx.input.isTouched) {
+            touchCoords.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
+            viewport.unproject(touchCoords)
 
-        centreX += (touchCoords.x - centreX) * delta * Constants.PADDLE_SPEED
+            centreX += (touchCoords.x - centreX) * delta * Constants.PADDLE_SPEED
+        }
+
+        val rawAccelX = Gdx.input.accelerometerX
+        filteredAccelX = filteredAccelX + alpha * (rawAccelX - filteredAccelX)
+
+        centreX -= filteredAccelX * delta * Constants.ACCELEROMETER_SENSITIVITY
+
         leftX = centreX - Constants.PADDLE_WIDTH * 0.5f
         if (leftX < 0f) leftX = 0f
         else if (leftX > viewport.worldWidth - Constants.PADDLE_WIDTH)
@@ -71,5 +82,6 @@ class Paddle(private val viewport: Viewport, private val texture: AtlasRegion?) 
     fun reset() {
         centreX = viewport.worldWidth * 0.5f
         y = 0.2f
+        filteredAccelX = 0f
     }
 }

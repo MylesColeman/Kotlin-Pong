@@ -18,6 +18,7 @@ object Constants {
     const val PADDLE_RIGHT_ANGLE = 50f
     const val PADDLE_DELTA_ANGLE = 15f
     const val PADDLE_SPEED = 5f
+    const val ACCELEROMETER_SENSITIVITY = 10f
 
     val AI_PADDLE_COLOR: Color = Color.RED
     const val AI_PADDLE_SPEED = 8f
