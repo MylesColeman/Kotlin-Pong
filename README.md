@@ -1,4 +1,4 @@
-# Pong (WIP)
+# Pong
 
 This repository is a refined implementation of the classic Pong, developed to master **Kotlin**-specific patterns and mobile game architecture as part of my **Mobile and Multiplayer** module at **Teesside University**.
 
