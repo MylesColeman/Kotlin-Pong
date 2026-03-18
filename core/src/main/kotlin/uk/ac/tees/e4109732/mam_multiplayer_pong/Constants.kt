@@ -13,4 +13,6 @@ object Constants {
     val OPPONENT_PADDLE_COLOR: Color = Color.RED
     const val PADDLE_SPEED = 5f
     const val ACCELEROMETER_SENSITIVITY = 10f
+
+    const val BALL_SPEED = 22f
 }

@@ -7,12 +7,16 @@ class Ball(private val texture: AtlasRegion?) {
     var x = 0f
     var y = 0f
 
+    // Velocity variables for Dead Reckoning
+    private var vx = 0f
+    private var vy = 0f
+
     private var targetX = 0f
     private var targetY = 0f
 
     private var localAngle = 0f
 
-    fun updateServerPosition(newX: Float, newY: Float) {
+    fun updateServerPosition(newX: Float, newY: Float, newVX: Float, newVY: Float) {
         if (kotlin.math.abs(newY - y) > 3f || kotlin.math.abs(newX - x) > 3f) {
             x = newX
             y = newY
@@ -20,9 +24,14 @@ class Ball(private val texture: AtlasRegion?) {
 
         targetX = newX
         targetY = newY
+        vx = newVX
+        vy = newVY
     }
 
     fun draw(batch: SpriteBatch, delta: Float) {
+        x += vx * delta * Constants.BALL_SPEED
+        y += vy * delta * Constants.BALL_SPEED
+
         val lerpSpeed = 10f
 
         x += (targetX - x) * lerpSpeed * delta

@@ -55,23 +55,40 @@ class GameWorld(private val gameScreen: GameScreen) {
                     onRenderingThread {
                         when {
                             line.startsWith("Ball: ") -> {
-                                val coords = line.substringAfter("Ball: ").split(", ")
-                                var serverX = coords[0].toFloat()
-                                var serverY = coords[1].toFloat()
+                                val data = line.substringAfter("Ball: ").split(", ")
 
-                                if (playerID == 1) {
-                                    serverX = Constants.WORLD_WIDTH - serverX
-                                    serverY = Constants.WORLD_HEIGHT - serverY
+                                if (data.size >= 4) {
+                                    var serverX = data[0].toFloat()
+                                    var serverY = data[1].toFloat()
+                                    var serverVX = data[2].toFloat()
+                                    var serverVY = data[3].toFloat()
+
+                                    if (playerID == 1) {
+                                        serverX = Constants.WORLD_WIDTH - serverX
+                                        serverY = Constants.WORLD_HEIGHT - serverY
+                                        serverVX = -serverVX
+                                        serverVY = -serverVY
+                                    }
+
+                                    ball.updateServerPosition(serverX, serverY, serverVX, serverVY)
                                 }
-
-                                ball.updateServerPosition(serverX, serverY)
                             }
-                            line.startsWith("Paddle: ") -> {
-                                val rawX = line.substringAfter("Paddle: ").toFloatOrNull()
-                                if (rawX != null) {
-                                    val finalX = Constants.WORLD_WIDTH - rawX
+                            line.startsWith("Paddle ") -> {
+                                try {
+                                    val content = line.substringAfter("Paddle ")
+                                    val data = content.split(": ")
 
-                                    opponentPaddle.updateTargetX(finalX)
+                                    if (data.size >= 2) {
+                                        val senderID = data[0].trim().toInt()
+                                        val serverX = data[1].trim().toFloat()
+
+                                        if (senderID != playerID) {
+                                            val finalX = if (playerID != 1) serverX else Constants.WORLD_WIDTH - serverX
+                                            opponentPaddle.updateTargetX(finalX)
+                                        }
+                                    }
+                                } catch (_: Exception) {
+                                    Gdx.app.error("Network", "Paddle Parse Fail: $line")
                                 }
                             }
                             line.startsWith("Score: ") -> {
