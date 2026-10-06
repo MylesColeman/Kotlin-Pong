@@ -1,2 +1,95 @@
 # Kotlin-Pong
-WIP
+
+# Pong
+
+This repository is a refined implementation of the classic Pong, developed to master **Kotlin**-specific patterns and mobile game architecture as part of my **Mobile and Multiplayer** module at **Teesside University**.
+
+*This repository will eventually be merged into a comprehensive Mobile & Multiplayer game demo collection.*
+
+---
+
+## Technical Focus
+* **AI Paddle Logic**: Implementation of an automated opponent that tracks ball trajectories, demonstrating a step toward "Believable AI" systems.
+* **Asset Optimisation**: Transitioned from individual sprite loading to using **Texture Atlases** for efficient rendering and reduced draw calls.
+* **State Management**: Utilising distinct screens for Loading, Menus, and Gameplay to manage a professional game flow.
+* **Kotlin Idioms**: Leveraging KTX (Kotlin Extensions for LibGDX) for cleaner, more expressive game logic.
+
+## Project Structure
+- `GameScreen.kt`: The core gameplay loop including physics, AI, and collision detection.
+- `LoadingScreen.kt`: Asynchronous asset loading to ensure a smooth user experience.
+- `MenuScreen.kt`: Handling UI interactions and game state transitions.
+- `assets/`: Optimised game textures stored in a `game.atlas` file.
+
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+
+This project was generated with a Kotlin project template that includes Kotlin application launchers and [KTX](https://libktx.github.io/) utilities.
+
+## Platforms
+
+- `core`: Main module with the application logic shared by all platforms.
+- `android`: Android mobile platform. Needs Android SDK.
+
+## Gradle
+
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
+The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
+Useful Gradle tasks and flags:
+
+- `--continue`: when using this flag, errors will not stop the tasks from running.
+- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
+- `--offline`: when using this flag, cached dependency archives will be used.
+- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `android:lint`: performs Android project validation.
+- `build`: builds sources and archives of every project.
+- `cleanEclipse`: removes Eclipse project data.
+- `cleanIdea`: removes IntelliJ project data.
+- `clean`: removes `build` folders, which store compiled classes and built archives.
+- `eclipse`: generates Eclipse project data.
+- `idea`: generates IntelliJ project data.
+- `test`: runs unit tests (if any).
+
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+For example, `core:clean` removes `build` folder only from the `core` project.
+
+# Multiplayer Pong
+
+This repository is a refined implementation of the classic Pong, developed to master **Kotlin**-specific patterns and mobile game architecture as part of my **Mobile and Multiplayer** module at **Teesside University**.
+
+*This repository will eventually be merged into a comprehensive Mobile & Multiplayer game demo collection.*
+
+---
+
+
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+
+This project was generated with a Kotlin project template that includes Kotlin application launchers and [KTX](https://libktx.github.io/) utilities.
+
+## Platforms
+
+- `core`: Main module with the application logic shared by all platforms.
+- `android`: Android mobile platform. Needs Android SDK.
+
+## Gradle
+
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
+The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
+Useful Gradle tasks and flags:
+
+- `--continue`: when using this flag, errors will not stop the tasks from running.
+- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
+- `--offline`: when using this flag, cached dependency archives will be used.
+- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `android:lint`: performs Android project validation.
+- `build`: builds sources and archives of every project.
+- `cleanEclipse`: removes Eclipse project data.
+- `cleanIdea`: removes IntelliJ project data.
+- `clean`: removes `build` folders, which store compiled classes and built archives.
+- `eclipse`: generates Eclipse project data.
+- `idea`: generates IntelliJ project data.
+- `test`: runs unit tests (if any).
+
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+For example, `core:clean` removes `build` folder only from the `core` project.
+
+# CPP-Game-Server-Pong
+CPP game server created for mobile/multiplayer Pong Project. 
